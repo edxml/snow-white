@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='utf-8'?>
+<edxml xmlns="http://edxml.org/edxml" version="3.0.0">
+  <ontology xmlns="http://edxml.org/edxml">
+  <object-types>
+    <object-type name="fairy-tales.character.looks" display-name-singular="character appearance" display-name-plural="character appearances" description="description of the appearance of a fairy tale character" data-type="string:0:mc:u" compress="false" version="1"/>
+    <object-type name="fairy-tales.character.name" display-name-singular="character name" display-name-plural="character names" description="name of a fairy tale character" data-type="string:0:mc:u" compress="false" version="1"/>
+    <object-type name="fairy-tales.character.snow-white.mirror-verdict" display-name-singular="mirror verdict" display-name-plural="mirror verdicts" description="verdict of the magic mirror" data-type="enum:the fairest of all:the fairest here so true" compress="false" version="1"/>
+    <object-type name="fairy-tales.character.type" display-name-singular="character type" display-name-plural="character types" description="type of fairy tale character" data-type="string:0:mc:u" compress="false" version="1"/>
+    <object-type name="fairy-tales.fairy-time" display-name-singular="vague time indication" display-name-plural="vague time indications" description="typical vague fairy tale time indications" data-type="string:0:mc:u" compress="false" version="1"/>
+    <object-type name="fairy-tales.location" display-name-singular="location" display-name-plural="locations" description="name of a location mentioned in a fairy tale" data-type="string:0:mc:u" compress="false" version="1"/>
+    <object-type name="fairy-tales.prop" display-name-singular="prop" display-name-plural="props" description="name of an object used in a fairy tale" data-type="string:0:mc:u" compress="false" version="1"/>
+  </object-types>
+  <concepts>
+    <concept name="fairy-tales.character" display-name-singular="character" display-name-plural="characters" description="fairy tale character" version="1"/>
+    <concept name="fairy-tales.character.prince" display-name-singular="prince" display-name-plural="princes" description="charming fairy tale prince" version="1"/>
+    <concept name="fairy-tales.character.snow-white.fairest" display-name-singular="good looking character" display-name-plural="good looking characters" description="fairy tale character that has the best looks of all" version="1"/>
+  </concepts>
+  <event-types>
+    <event-type name="fairy-tale.character-intro" display-name-singular="character introduction" display-name-plural="character introductions" description="introduction of a fairy tale character" summary="Introducing [[type]]{ [[name]]}" story="{[[when]] }there was a [[type]]{ named [[name]]}{, who looked particularly [[look]]}." version="1">
+      <properties>
+        <property name="look" object-type="fairy-tales.character.looks" description="look" optional="true" multivalued="true" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character" confidence="0" cnp="128"/>
+        </property>
+        <property name="name" object-type="fairy-tales.character.name" description="name" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character" confidence="8" cnp="255"/>
+        </property>
+        <property name="type" object-type="fairy-tales.character.type" description="type" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character" confidence="0" cnp="128"/>
+        </property>
+        <property name="when" object-type="fairy-tales.fairy-time" description="when" optional="true" multivalued="false" merge="any" confidence="10"/>
+      </properties>
+      <relations>
+        <intra source="name" target="look" source-concept="fairy-tales.character" target-concept="fairy-tales.character" description="the story tells that [[name]] looks [[look]]" predicate="looks" confidence="10"/>
+        <intra source="name" target="type" source-concept="fairy-tales.character" target-concept="fairy-tales.character" description="[[name]] is introduced as being a [[type]]" predicate="is a" confidence="10"/>
+      </relations>
+    </event-type>
+    <event-type name="fairy-tale.character-whereabouts" display-name-singular="character whereabouts" display-name-plural="character whereaboutss" description="description of the living place of a character" summary="Whereabouts of [[name]]" story="[[name]] lived in [[whereabouts]]." version="1">
+      <properties>
+        <property name="name" object-type="fairy-tales.character.name" description="name" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character" confidence="8" cnp="255"/>
+        </property>
+        <property name="whereabouts" object-type="fairy-tales.location" description="whereabouts" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character" confidence="0" cnp="128"/>
+        </property>
+      </properties>
+      <relations>
+        <intra source="name" target="whereabouts" source-concept="fairy-tales.character" target-concept="fairy-tales.character" description="the story says [[name]] lives [[whereabouts]]" predicate="lives in" confidence="10"/>
+      </relations>
+    </event-type>
+    <event-type name="fairy-tale.snow-white.acts.angry-queen" display-name-singular="angry queen act" display-name-plural="angry queen acts" description="the queen getting angry after mirror verdict" summary="Queen gets angry" story="[[villain]], insulted and outraged, ordered [[assassin]] to go to [[location]] and kill [[victim]]. The [[assassin]] could not do it and told [[victim]] to flee and never return." version="1">
+      <properties>
+        <property name="assassin" object-type="fairy-tales.character.name" description="assassin" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character" confidence="8" cnp="255"/>
+        </property>
+        <property name="location" object-type="fairy-tales.location" description="location" optional="false" multivalued="false" merge="any" confidence="10"/>
+        <property name="victim" object-type="fairy-tales.character.name" description="victim" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character.snow-white.fairest" confidence="8" cnp="255"/>
+        </property>
+        <property name="villain" object-type="fairy-tales.character.name" description="villain" optional="false" multivalued="false" merge="any" confidence="10"/>
+      </properties>
+      <relations>
+        <inter source="assassin" target="victim" source-concept="fairy-tales.character" target-concept="fairy-tales.character.snow-white.fairest" description="[[assassin]] was ordered to kill [[victim]]" predicate="tried to kill" confidence="10"/>
+      </relations>
+    </event-type>
+    <event-type name="fairy-tale.snow-white.acts.find-dwelling" display-name-singular="victim finding shelter" display-name-plural="victim finding shelters" description="the fleeing victim finding a shelter" summary="[[victim]] finds [[dwelling]]" story="After hours of wandering around [[victim]] found a [[dwelling]]. It looked abandoned, and so [[victim]] decided to enter the [[dwelling]] and rest for a bit. What [[victim]] did not know was that the [[dwelling]] belonged to a bunch of charming inhabitants who came home from work when [[victim]] slept. They decided that [[victim]] could stay at the [[dwelling]]." version="1">
+      <properties>
+        <property name="dwelling" object-type="fairy-tales.location" description="dwelling" optional="false" multivalued="false" merge="any" confidence="10"/>
+        <property name="victim" object-type="fairy-tales.character.name" description="victim" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character.snow-white.fairest" confidence="8" cnp="255"/>
+        </property>
+      </properties>
+    </event-type>
+    <event-type name="fairy-tale.snow-white.acts.mirror" display-name-singular="magic mirror act" display-name-plural="magic mirror acts" description="the queen looking in her magic mirror" summary="Mirror: [[name]] is the fairest" story="[[villain]] looked into her magic mirror, saying: &quot;Magic mirror on the wall, who is the fairest one of all? The mirror answered: [[name]] is [[verdict]].&quot;" version="1">
+      <properties>
+        <property name="name" object-type="fairy-tales.character.name" description="name" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character.snow-white.fairest" confidence="8" cnp="255"/>
+        </property>
+        <property name="verdict" object-type="fairy-tales.character.snow-white.mirror-verdict" description="verdict" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character.snow-white.fairest" confidence="8" cnp="128"/>
+        </property>
+        <property name="villain" object-type="fairy-tales.character.name" description="villain" optional="false" multivalued="false" merge="any" confidence="10"/>
+      </properties>
+      <relations>
+        <intra source="name" target="verdict" source-concept="fairy-tales.character.snow-white.fairest" target-concept="fairy-tales.character.snow-white.fairest" description="the magic mirror said [[name]] was [[verdict]]" predicate="appraised as" confidence="10"/>
+      </relations>
+    </event-type>
+    <event-type name="fairy-tale.snow-white.acts.poisoning" display-name-singular="victim getting poisoned" display-name-plural="victim getting poisoneds" description="the victim getting poisoned" summary="[[villain]] kills [[victim]]" story="Some day, when [[victim]] was home alone, a [[visitor]] came at the door. The [[visitor]] convinced [[victim]] to try a [[item]] that the [[visitor]] carried. What [[victim]] did not know was that the [[visitor]] was in fact [[villain]] in disguise and that the [[item]] was poisonous. [[victim]] ate the [[item]] and fell unconscious. Convinced that [[victim]] was dead, [[villain]] left." version="1">
+      <properties>
+        <property name="item" object-type="fairy-tales.prop" description="item" optional="false" multivalued="false" merge="any" confidence="10"/>
+        <property name="victim" object-type="fairy-tales.character.name" description="victim" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character.snow-white.fairest" confidence="8" cnp="255"/>
+        </property>
+        <property name="villain" object-type="fairy-tales.character.name" description="villain" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character" confidence="8" cnp="255"/>
+        </property>
+        <property name="visitor" object-type="fairy-tales.character.type" description="visitor" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character" confidence="8" cnp="255"/>
+        </property>
+      </properties>
+      <relations>
+        <intra source="villain" target="visitor" source-concept="fairy-tales.character" target-concept="fairy-tales.character" description="the story reveals that [[visitor]] is actually [[villain]] in disguise" predicate="disguised as" confidence="10"/>
+      </relations>
+    </event-type>
+    <event-type name="fairy-tale.snow-white.acts.revival" display-name-singular="victim being revived" display-name-plural="victim being reviveds" description="the victim being revived" summary="[[liberator]] awakens [[victim]]" story="The next day, a [[liberator]] came by the [[dwelling]] where [[victim]] had died. The [[liberator]] admired the beauty of [[victim]] and kissed her. Then, [[victim]] woke up immediately. The [[liberator]] asked [[victim]] to merry him. Overjoyed by the proposal, [[victim]] accepted and they lived happily ever after." version="1">
+      <properties>
+        <property name="dwelling" object-type="fairy-tales.location" description="dwelling" optional="false" multivalued="false" merge="any" confidence="10"/>
+        <property name="liberator" object-type="fairy-tales.character.type" description="liberator" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character.prince" confidence="8" cnp="255"/>
+        </property>
+        <property name="victim" object-type="fairy-tales.character.name" description="victim" optional="false" multivalued="false" merge="any" confidence="10">
+          <property-concept name="fairy-tales.character.snow-white.fairest" confidence="8" cnp="255"/>
+        </property>
+      </properties>
+    </event-type>
+  </event-types>
+  <sources>
+    <source uri="/examples/fairy-tales/snow-white/" description="A machine's attempt to tell the famous story of Snow White" version="1"/>
+  </sources>
+</ontology>
+<event event-type="fairy-tale.character-intro" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <when>once upon a time</when>
+    <type>princess</type>
+    <name>Snow White</name>
+    <look>handsome</look>
+    <look>friendly</look>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.character-intro" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <type>queen</type>
+    <name>the Evil Queen</name>
+    <look>mean</look>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.character-whereabouts" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <name>Snow White</name>
+    <whereabouts>the castle of the queen</whereabouts>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.snow-white.acts.mirror" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <villain>the Evil Queen</villain>
+    <name>Snow White</name>
+    <verdict>the fairest of all</verdict>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.snow-white.acts.angry-queen" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <villain>the Evil Queen</villain>
+    <assassin>the Queen's huntsman</assassin>
+    <location>the woods</location>
+    <victim>Snow White</victim>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.snow-white.acts.find-dwelling" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <dwelling>tiny cottage</dwelling>
+    <victim>Snow White</victim>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.character-intro" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <type>dwarf</type>
+    <name>Doc</name>
+    <look>thoughtful</look>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.character-intro" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <type>dwarf</type>
+    <name>Happy</name>
+    <look>jovial</look>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.character-intro" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <type>dwarf</type>
+    <name>Sneezy</name>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.snow-white.acts.poisoning" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <visitor>old beggar</visitor>
+    <villain>the Evil Queen</villain>
+    <item>apple</item>
+    <victim>Snow White</victim>
+  </properties>
+  <attachments/>
+</event>
+<event event-type="fairy-tale.snow-white.acts.revival" source-uri="/examples/fairy-tales/snow-white/">
+  <properties>
+    <victim>Snow White</victim>
+    <liberator>prince</liberator>
+    <dwelling>tiny cottage</dwelling>
+  </properties>
+  <attachments/>
+</event>
+</edxml>
