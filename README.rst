@@ -1,5 +1,6 @@
-|validation|
+|license| |validation|
 
+.. |license| image::  https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
 .. |validation| image::    https://github.com/edxml/snow-white/actions/workflows/validation.yml/badge.svg
 
 ==========
