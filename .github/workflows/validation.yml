@@ -19,7 +19,7 @@ jobs:
         python-version: 3.6
     - name: Install dependencies
       run: |
-        pip install 'edxml>=3.0.0.dev0'
+        pip install 'edxml~=3.0'
     - name: Test EDXML validity
       run: |
         edxml-validate -f snow-white.edxml
